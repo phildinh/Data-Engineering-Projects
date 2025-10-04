@@ -134,15 +134,16 @@ Data stored in **Gold layer** within SQL Database / Delta Tables, ready for anal
 
 ## 📐 Project Architecture
 
-```mermaid
-flowchart TD
-    API[API Source] --> ADF[Azure Data Factory<br/>(Pipelines)]
-    ADF --> Bronze[Bronze Layer<br/>(Raw Data in Parquet/JSON)]
-    Bronze --> DBX[Azure Databricks<br/>PySpark Transformations]
-    DBX --> Silver[Silver Layer<br/>(Cleaned & Standardized)]
-    Silver --> Gold[Gold Layer<br/>(Business Models & KPIs)]
-    Gold --> SQL[SQL Database / Delta Lake]
-    SQL --> PBI[Power BI Dashboards]
+flowchart TD:
+
+-  API[API Source] --> ADF[Azure Data Factory<br/>(Pipelines)]
+-  ADF --> Bronze[Bronze Layer<br/>(Raw Data in Parquet/JSON)]
+-  Bronze --> DBX[Azure Databricks<br/>PySpark Transformations]
+-  DBX --> Silver[Silver Layer<br/>(Cleaned & Standardized)]
+-  Silver --> Gold[Gold Layer<br/>(Business Models & KPIs)]
+-  Gold --> SQL[SQL Database / Delta Lake]
+-  SQL --> PBI[Power BI Dashboards]
+
 
 ---
 
@@ -155,3 +156,7 @@ flowchart TD
 - **IAM + Entra ID integration** secures access and prevents key exposure.  
 
 ---
+
+
+---
+
