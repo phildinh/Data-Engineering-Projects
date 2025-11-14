@@ -1,0 +1,9 @@
+{
+	"name": "spotifyphilproject",
+	"location": "australiasoutheast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "972a9d92-d101-4ad5-8086-cc0dd9ebea9a",
+		"tenantId": "a8f9b7dc-20e9-46ea-90b7-6e16b034b59c"
+	}
+}
