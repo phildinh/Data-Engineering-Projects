@@ -46,6 +46,9 @@ Raw data is ingested into the Landing Layer using a date-partitioned folder stra
 
 /Volumes/nyctaxi/00_landing/data_sources/nyctaxi_yellow/{date}
 
+<img width="1916" height="1025" alt="image" src="https://github.com/user-attachments/assets/478461f3-aa1b-45a2-9b16-81f7bdca27b1" />
+
+
 Key design principles:
 - No transformations applied
 - Data stored as managed Delta tables
@@ -146,6 +149,9 @@ Characteristics:
 The pipeline is orchestrated using Databricks Jobs with a dependency-aware DAG:
 
 Landing → Bronze → Silver → Gold
+
+<img width="1641" height="567" alt="image" src="https://github.com/user-attachments/assets/2da67081-2e1f-407d-93cd-6abc2bd29e18" />
+
 
 ### 🔹 Operational Characteristics
 - Scheduled weekly execution
