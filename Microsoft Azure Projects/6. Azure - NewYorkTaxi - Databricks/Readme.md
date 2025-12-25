@@ -1,5 +1,5 @@
 # New York City Taxi Analytics  
-## Azure Databricks Lakehouse | Medallion Architecture | Incremental Load | SCD Type 2 | Job Orchestration | Performance Considerations
+## Azure Databricks Lakehouse | Medallion Architecture | Incremental Load | SCD Type 2 | Job Orchestration | Performance Considerations | Granting Access for Data Analyst at Gold layer 
 
 ---
 
@@ -30,6 +30,7 @@ This repository is intentionally structured and narrated to be **portfolio-ready
 - **Orchestration**: Databricks Jobs
 - **Version Control**: GitHub + Databricks Repos
 - **Collaboration Model**: Feature branches + Pull Requests
+- **Granting Access**: Data Governance
 
 ---
 
@@ -83,6 +84,7 @@ All Bronze → Gold tables are stored as **managed Delta tables**, ensuring:
 4. Incremental Load & Orchestration  
 5. Data Validation & Quality Checks
 6. Performance & Scalability Considerations
+7. Granting Access for Data Analyst
 ---
 
 ### **Section 1 — Environment & Governance Setup**
@@ -304,7 +306,7 @@ The pipeline leverages **Databricks Serverless compute** for batch and increment
 
 Compute selection is aligned with the **batch-oriented nature** of the pipeline, with the ability to evolve toward more specialized clusters if workload patterns change.
 
-### 6.5 Deferred Optimization Philosophy
+#### 6.5 Deferred Optimization Philosophy
 
 Performance tuning is treated as an **iterative process**, guided by:
 
