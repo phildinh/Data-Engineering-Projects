@@ -1,5 +1,5 @@
 # New York City Taxi Analytics  
-## Azure Databricks Lakehouse | Medallion Architecture | Incremental Load | SCD Type 2 | Job Orchestration | Performance Considerations | Granting Access for Data Analyst at Gold layer 
+## Azure Databricks Lakehouse | Medallion Architecture | Incremental Load | SCD Type 2 | Job Orchestration | Performance Considerations | Granting Access for Data Analysts at the Gold Layer 
 
 ---
 
@@ -30,7 +30,7 @@ This repository is intentionally structured and narrated to be **portfolio-ready
 - **Orchestration**: Databricks Jobs
 - **Version Control**: GitHub + Databricks Repos
 - **Collaboration Model**: Feature branches + Pull Requests
-- **Granting Access**: Data Governance
+- **Granting Access**: Data Governance + Role Based access
 
 ---
 
@@ -84,7 +84,7 @@ All Bronze → Gold tables are stored as **managed Delta tables**, ensuring:
 4. Incremental Load & Orchestration  
 5. Data Validation & Quality Checks
 6. Performance & Scalability Considerations
-7. Granting Access for Data Analyst
+7. Granting Access for Data Analysts
 ---
 
 ### **Section 1 — Environment & Governance Setup**
@@ -317,6 +317,131 @@ Performance tuning is treated as an **iterative process**, guided by:
 
 This approach ensures that optimization efforts are **justified, measurable, and sustainable**, mirroring how performance engineering is handled in real production environments.
 <img width="819" height="103" alt="image" src="https://github.com/user-attachments/assets/3603cc74-a089-4503-b726-1ac0969cb08a" />
+
+---
+
+### 🔐 Section 7 — Granting Access for Data Analysts at the Gold Layer
+
+This section demonstrates how **fine-grained data access** is implemented using **Azure IAM + Databricks Unity Catalog**, ensuring that business users (Data Analysts) can **query curated Gold data** without exposure to raw or intermediate datasets.
+
+The goal is to follow the **principle of least privilege**, a standard practice in enterprise data platforms.
+
+---
+
+#### 7.1 Azure-Level Access (Platform Entry Point)
+
+Before granting any data access, the test Data Analyst account is granted access at the **Azure resource group level**.
+
+This step ensures:
+- The user can authenticate into the Databricks workspace
+- Platform access is controlled separately from data access
+- Cloud-level governance remains centralized in Azure
+
+<img width="1918" height="905" alt="grant access from microsoft" src="https://github.com/user-attachments/assets/3a1d1625-a619-4c3b-9351-29bb04be555e" />
+
+---
+
+#### 7.2 Admin Workspace: Full Catalog Visibility
+
+From the **admin Databricks workspace**, the `nyctaxi` catalog contains all schemas representing the Medallion architecture:
+
+- `00_landing`
+- `01_bronze`
+- `02_silver`
+- `03_gold`
+
+At this stage:
+- Only platform admins and data engineers have full visibility
+- No permissions have been granted to the test Data Analyst
+
+<img width="1918" height="910" alt="admin workspace" src="https://github.com/user-attachments/assets/8d6f405b-fbfa-4bb9-ad8a-e6719fd9a135" />
+
+---
+
+#### 7.3 Test User: No Catalog Visibility by Default
+
+When logging in as the **test Data Analyst**, the `nyctaxi` catalog is **not visible**.
+
+This confirms:
+- Unity Catalog does **not expose data by default**
+- Catalog-level access must be explicitly granted
+- There is no accidental data leakage across users
+
+<img width="1917" height="906" alt="test user workspace" src="https://github.com/user-attachments/assets/158970f2-c8dc-4661-82a5-f6640d74d3a5" />
+
+---
+
+#### 7.4 Granting Gold-Only Access (Unity Catalog)
+
+Access is then granted to the test user with the following scope:
+
+- **USE CATALOG** on `nyctaxi`
+- **USE SCHEMA** on `nyctaxi.03_gold`
+- **SELECT** on tables within `nyctaxi.03_gold`
+
+No permissions are granted for:
+- `00_landing`
+- `01_bronze`
+- `02_silver`
+
+This ensures the Data Analyst:
+- Can only work with **curated, business-ready data**
+- Cannot access raw or intermediate layers
+- Cannot modify schemas or tables
+
+<img width="1908" height="902" alt="grant access for data analyst at gold layer" src="https://github.com/user-attachments/assets/83fe81b2-ed77-4a4a-b3da-b445ef150adf" />
+
+---
+
+#### 7.5 Scoped Visibility for the Data Analyst
+
+After permissions are applied, the test user can now:
+
+- See the `nyctaxi` catalog
+- See **only the `03_gold` schema**
+- Cannot see Bronze or Silver schemas at all
+
+This confirms that **schema-level isolation** is working as intended.
+
+<img width="1907" height="902" alt="from test workspace can only see gold layer" src="https://github.com/user-attachments/assets/75769878-8968-4ead-bfab-00f01321248a" />
+
+---
+
+#### 7.6 Querying Gold Data as a Data Analyst
+
+Finally, the test user successfully queries a Gold table (e.g. `daily_trip_summary`) using the SQL Editor.
+
+This validates:
+- Read-only access is correctly configured
+- Gold data is consumable by analytics workloads
+- The Medallion architecture is enforced through permissions, not convention
+
+<img width="1906" height="906" alt="test user can query gold layer at select" src="https://github.com/user-attachments/assets/67cc95f1-13d1-4bc4-86cb-545b082c9318" />
+
+---
+
+#### 7.7 Why This Matters (Enterprise Perspective)
+
+This access model reflects real production environments where:
+
+- Data Engineers own **pipeline logic and transformations**
+- Data Analysts consume **trusted, curated outputs**
+- Governance is enforced centrally via Unity Catalog
+- Security rules scale across teams and projects
+
+By restricting access to the Gold layer only, the platform:
+- Reduces risk of misinterpretation of raw data
+- Prevents accidental modification of upstream tables
+- Supports compliance and audit requirements
+
+#### ✅ Key Takeaways
+
+- Azure IAM controls **who can enter the platform**
+- Unity Catalog controls **what data users can see**
+- Schema-level grants enable **clean separation of responsibilities**
+- Gold-layer-only access is a best practice for analytics users
+
+This setup demonstrates **production-ready data governance**, not just data processing.
 
 ---
 
