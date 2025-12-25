@@ -326,8 +326,6 @@ This section demonstrates how **fine-grained data access** is implemented using 
 
 The goal is to follow the **principle of least privilege**, a standard practice in enterprise data platforms.
 
----
-
 #### 7.1 Azure-Level Access (Platform Entry Point)
 
 Before granting any data access, the test Data Analyst account is granted access at the **Azure resource group level**.
@@ -338,8 +336,6 @@ This step ensures:
 - Cloud-level governance remains centralized in Azure
 
 <img width="1918" height="905" alt="grant access from microsoft" src="https://github.com/user-attachments/assets/3a1d1625-a619-4c3b-9351-29bb04be555e" />
-
----
 
 #### 7.2 Admin Workspace: Full Catalog Visibility
 
@@ -356,8 +352,6 @@ At this stage:
 
 <img width="1918" height="910" alt="admin workspace" src="https://github.com/user-attachments/assets/8d6f405b-fbfa-4bb9-ad8a-e6719fd9a135" />
 
----
-
 #### 7.3 Test User: No Catalog Visibility by Default
 
 When logging in as the **test Data Analyst**, the `nyctaxi` catalog is **not visible**.
@@ -368,8 +362,6 @@ This confirms:
 - There is no accidental data leakage across users
 
 <img width="1917" height="906" alt="test user workspace" src="https://github.com/user-attachments/assets/158970f2-c8dc-4661-82a5-f6640d74d3a5" />
-
----
 
 #### 7.4 Granting Gold-Only Access (Unity Catalog)
 
@@ -391,8 +383,6 @@ This ensures the Data Analyst:
 
 <img width="1908" height="902" alt="grant access for data analyst at gold layer" src="https://github.com/user-attachments/assets/83fe81b2-ed77-4a4a-b3da-b445ef150adf" />
 
----
-
 #### 7.5 Scoped Visibility for the Data Analyst
 
 After permissions are applied, the test user can now:
@@ -405,7 +395,6 @@ This confirms that **schema-level isolation** is working as intended.
 
 <img width="1907" height="902" alt="from test workspace can only see gold layer" src="https://github.com/user-attachments/assets/75769878-8968-4ead-bfab-00f01321248a" />
 
----
 
 #### 7.6 Querying Gold Data as a Data Analyst
 
@@ -418,7 +407,6 @@ This validates:
 
 <img width="1906" height="906" alt="test user can query gold layer at select" src="https://github.com/user-attachments/assets/67cc95f1-13d1-4bc4-86cb-545b082c9318" />
 
----
 
 #### 7.7 Why This Matters (Enterprise Perspective)
 
