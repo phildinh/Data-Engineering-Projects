@@ -14,6 +14,9 @@ The goal of the project is to showcase how raw data can be transformed into **tr
 
 This repository is designed as a **portfolio‑ready project** to demonstrate real‑world analytics engineering skills rather than just SQL transformations.
 
+<img width="1898" height="1008" alt="image" src="https://github.com/user-attachments/assets/90894999-f9f2-4304-ac0d-e83136c278bf" />
+<img width="1902" height="882" alt="image" src="https://github.com/user-attachments/assets/93b15235-e3ff-4d32-85ff-b5b4cc5fc81c" />
+
 ---
 
 ## 🏗️ Architecture Overview
