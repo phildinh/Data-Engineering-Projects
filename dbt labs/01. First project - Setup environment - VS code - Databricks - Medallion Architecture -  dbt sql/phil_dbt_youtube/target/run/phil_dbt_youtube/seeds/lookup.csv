@@ -1,0 +1,21 @@
+
+    
+    
+    
+    create or replace table `dbt_tutorial_dev`.`bronze`.`lookup` (`store_sk` bigint ,`store_name` string ,`city` string ,`state` string ,`country` string ,`store_type` string ,`opened_date` date ,`is_active` boolean )
+    
+  using delta
+    
+    
+    
+    
+    
+  ;
+    -- dbt seed --
+    
+          insert overwrite `dbt_tutorial_dev`.`bronze`.`lookup` values
+          (%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s),(%s,%s,%s,%s,%s,%s,%s,%s)
+      
+
+;
+  

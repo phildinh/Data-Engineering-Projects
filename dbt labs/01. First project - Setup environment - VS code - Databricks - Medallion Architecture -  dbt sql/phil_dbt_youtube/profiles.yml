@@ -1,0 +1,11 @@
+phil_dbt_youtube:
+  target: dev
+  outputs:
+    dev:
+      catalog: dbt_tutorial_dev
+      type: databricks
+      schema: default
+      host: dbc-6d6939de-4e7b.cloud.databricks.com
+      http_path: /sql/1.0/warehouses/dd563064492a7f65
+      threads: 1
+      token: ******************************
